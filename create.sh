@@ -3,7 +3,7 @@
 prefix=distance
 subtitle=''
 yyyymmdd=$(yyyymmdd)
-index=0
+index=1
 
 function usage {
     cat<<EOF>&2
@@ -13,7 +13,7 @@ Synopsis
 
 Description
 
-  Create new file "{prefix}-{yyyymmdd}-{x}.tex", for x = {0,...,N}.
+  Create new file "{prefix}-{yyyymmdd}-{x}.txt", for x = {1,...,N}.
 
 
 Synopsis
@@ -22,7 +22,7 @@ Synopsis
 
 Description
 
-  Create new file "{prefix}-{yyyymmdd}-{x}.tex".
+  Create new file "{prefix}-{yyyymmdd}-{x}.txt".
 
 
 Synopsis
@@ -31,7 +31,7 @@ Synopsis
 
 Description
 
-  Create new file "{prefix}-{yyyymmdd}-{x}-{subtitle}.tex".
+  Create new file "{prefix}-{yyyymmdd}-{x}-{subtitle}.txt".
 
 
 EOF
@@ -59,27 +59,24 @@ do
 done
 
 #
-file=${prefix}-${yyyymmdd}-${index}.tex
+file=${prefix}-${yyyymmdd}-${index}.txt
 
 while [ -f ${file} ]
 do
     index=$(( ${index} + 1 ))
-    file=${prefix}-${yyyymmdd}-${index}.tex
+    file=${prefix}-${yyyymmdd}-${index}.txt
 done
 
 #
 if [ -n "${subtitle}" ]
 then
-    file=${prefix}-${yyyymmdd}-${index}-${subtitle}.tex
+    file=${prefix}-${yyyymmdd}-${index}-${subtitle}.txt
 fi
 
 #
 cat<<EOF>${file}
-\input preamble
 
 
-
-\bye
 EOF
 
 echo ${file}

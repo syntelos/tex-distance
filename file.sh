@@ -142,11 +142,11 @@ done
 if [ -n "${ref}" ]
 then
 
-    file=$(2>/dev/null ls ${prefix}-*.{txt,tex,png,pdf} | sort -V | egrep -e "${ref}" | head -n 1 )
+    file=$(2>/dev/null ls ${prefix}-*.txt | sort -V | egrep -e "${ref}" | head -n 1 )
 
 else
 
-    file=$(2>/dev/null ls ${prefix}-*.{txt,tex,png,pdf} | sort -V | egrep -ve '[0-9][0-9][0-9][0-9][0-9][0-9]-[0-9]-[a-zA-Z]' | tail -n 1 )
+    file=$(2>/dev/null ls ${prefix}-*.txt | sort -V | egrep -ve '[0-9][0-9][0-9][0-9][0-9][0-9]-[1-9]-[a-zA-Z]' | tail -n 1 )
 
 fi
 
@@ -189,16 +189,8 @@ then
     then
 	file="${base}.${fext}"
 
-    elif [ -f "${base}.tex" ]
-    then
-	file="${base}.tex"
-
-    elif [ -f "${base}.txt" ]
-    then
-	file="${base}.txt"
-
     else
-	file="${base}.${fext}"
+	file="${base}.txt"
     fi
 
     #
