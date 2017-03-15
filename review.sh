@@ -33,7 +33,7 @@ case "${1}" in
 esac
 
 
-if flist=$(2>/dev/null ls *${re}*.tex ) && [ -n "${flist}" ]
+if flist=$(2>/dev/null ls *${re}*.{txt,tex} ) && [ -n "${flist}" ]
 then
  for src in ${flist}
  do
@@ -57,7 +57,7 @@ then
  exit 0
 else
  cat<<EOF>&2
-$0 error, empty list of files from 'ls *${re}*.tex'.
+$0 error, empty list of files from 'ls *${re}*.{txt,tex}'.
 EOF
  exit 1
 fi
