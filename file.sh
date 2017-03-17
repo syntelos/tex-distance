@@ -142,7 +142,7 @@ done
 if [ -n "${ref}" ]
 then
 
-    file=$(2>/dev/null ls ${prefix}-*.txt | sort -V | egrep -e "${ref}" | head -n 1 )
+    file=$(2>/dev/null ls ${prefix}-*.txt | sort -V | egrep -e "${ref}" | tail -n 1 )
 
 else
 
