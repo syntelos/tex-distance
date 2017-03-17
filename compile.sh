@@ -38,6 +38,7 @@ EOF
 	for srcf in ${flist} 
 	do
 	    echo >>${ftgt}
+	    echo "\vfill">>${ftgt}
 	    echo "\break">>${ftgt}
 	    echo >>${ftgt}
 	    cat ${srcf} >> ${ftgt}
@@ -45,6 +46,7 @@ EOF
 
 	cat<<EOF>>${ftgt}
 
+\vfill
 \bye
 EOF
 
