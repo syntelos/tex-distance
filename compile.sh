@@ -30,7 +30,7 @@ then
 \input book
 
 \centerline{\bf Distance}
-\centerline{\teni ${day}, ${date}}
+\centerline{\it ${day}, ${date}}
 
 
 EOF
