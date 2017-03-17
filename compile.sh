@@ -44,6 +44,7 @@ EOF
 	done
 
 	cat<<EOF>>${ftgt}
+
 \bye
 EOF
 
