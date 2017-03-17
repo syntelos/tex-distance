@@ -58,7 +58,7 @@ EOF
 
 #
 #
-if src=$(./file.sh $* | sed 's^-[0-9*]\.txt^.tex^') && [ -f "${src}" ]
+if src=$(./file.sh $* | sed 's^-[0-9*]*\.txt^.tex^') && [ -f "${src}" ]
 then
 
     #
