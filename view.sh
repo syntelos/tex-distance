@@ -1,8 +1,16 @@
 #!/bin/bash
 
+file_dvi=$(./file.sh $* dvi)
+
 file_txt=$(./file.sh $* txt)
 
-if [ -f "${file_txt}" ]
+if [ -f "${file_dvi}" ]&&[ -f "${file_txt}" ]&&[ "${file_dvi}" -nt "${file_txt}" ]
+then
+    xdvi ${file_dvi} &
+
+    exit 0
+
+elif [ -f "${file_txt}" ]
 then
     cat -n ${file_txt}  
 
