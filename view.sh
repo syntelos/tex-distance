@@ -1,8 +1,8 @@
 #!/bin/bash
 
-file_dvi=$(./file.sh $* dvi)
+file_dvi=$(./file.sh $* dvi | egrep '\.dvi$')
 
-file_txt=$(./file.sh $* txt)
+file_txt=$(./file.sh $* txt | egrep '\.txt$')
 
 if [ -f "${file_dvi}" ]&&[ -f "${file_txt}" ]&&[ "${file_dvi}" -nt "${file_txt}" ]
 then

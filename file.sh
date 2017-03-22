@@ -153,6 +153,17 @@ done
 #    -V', 'tail -n 1', and the temporal work flow process.
 #
 #
+#    REF-GENER
+#
+#     The output of a nonexistent file reference is the "generate" or
+#     "generative" case, also known as the "blind" or "nonexistent" or
+#     "create" case.  This case is found in the application of this
+#     script to file existence testing found in the "./edit.sh" and
+#     "./view.sh" script.  In this case the user-script needs to
+#     filter-exclude the output for its own existence-expectation
+#     requirement.
+#
+#
 #    REF-QUERY
 #
 #      When the request/expectation is relatively concrete
