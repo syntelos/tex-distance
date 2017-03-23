@@ -184,8 +184,6 @@ done
 #                {prefix}-YYYYMMDD.RRR | {prefix}-YYYYMMDD.txt )?
 #
 #
-set -x
-
 if [ -n "${ref}" ]
 then
 
