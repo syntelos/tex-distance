@@ -77,7 +77,7 @@ EOF
 
 #
 #
-fext=tex
+fext=''
 del_date=0
 del_item=0
 subtitle=''
@@ -184,6 +184,8 @@ done
 #                {prefix}-YYYYMMDD.RRR | {prefix}-YYYYMMDD.txt )?
 #
 #
+set -x
+
 if [ -n "${ref}" ]
 then
 
@@ -244,15 +246,27 @@ then
     then
 	file="${base}.${fext}"
 
-    else
+    elif [ -f "${base}.txt" ]
+    then
 	file="${base}.txt"
+
+    elif [ -f "${base}.tex" ]
+    then
+	file="${base}.tex"
     fi
 
     #
-    echo "${file}"
+    if [ -n "${file}" ]&&[ -f "${file}" ]
+    then
+	echo "${file}"
 
-    exit 0
-
+	exit 0
+    else
+	cat<<EOF>&2
+$0: file not found.
+EOF
+	exit 1
+    fi
 else
 
     cat<<EOF>&2
