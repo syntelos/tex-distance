@@ -1,31 +1,36 @@
 #!/bin/bash
 
-lsre="../journal/journal-$(yyyymmdd)-*.tex"
+src_pr=journal
+src_fx=tex
 
-if src_flist=$(2>/dev/null ls ${lsre}) && [ -n "${src_flist}" ]
+tgt_pr=distance
+tgt_fx=txt
+
+src_re="../${src_pr}/${src_pr}-$(yyyymmdd)-*.${src_fx}"
+
+if src_flist=$(2>/dev/null ls ${src_re} | sort -V) && [ -n "${src_flist}" ]
 then
 
     for src in ${src_flist}
     do
-	tgt=$(basename ${src} .tex | sed 's/journal/distance/').tex
+	tgt=$(basename ${src} .${src_fx} | sed "s/${src_pr}/${tgt_pr}/").${tgt_fx}
 
-	if [ ! -f "${tgt}" ]
+	if [ -f "${tgt}" ]
 	then
-
+	    echo "X ${tgt}"
+	else
 	    egrep -v '\\(input|bye) ' ${src} > ${tgt}
 
 	    2>/dev/null git add ${tgt}
 
 	    echo "U ${tgt}"
-	else
-	    echo "X ${tgt}"
 	fi
 
     done
     exit 0
 else
     cat<<EOF>&2
-$0 error file '${lsre}' not found.
+$0 error file '${src_re}' not found.
 EOF
 
     exit 1
