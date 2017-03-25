@@ -19,7 +19,7 @@ then
 	then
 	    echo "X ${tgt}"
 	else
-	    egrep -v '\\(input|bye) ' ${src} > ${tgt}
+	    egrep -v '^\\(input|bye)' ${src} > ${tgt}
 
 	    2>/dev/null git add ${tgt}
 
