@@ -26,7 +26,7 @@ then
 	exit 1
     fi
 
-elif file=$(./file.sh $* ) &&[ -n "${file}" ]&&[ -f "${file}" ]
+elif file=$(2>/dev/null ./file.sh $* ) &&[ -n "${file}" ]&&[ -f "${file}" ]
 then
 
     if flog "${file}"
