@@ -28,6 +28,38 @@ EOF
 }
 
 #
+# Preserve S^{*} = { p-D-I.y < p-D.y }
+#
+function serialize {
+    #
+    # (RRRRRRRR-R < RRRRRRRR)
+    #
+    leader=''
+
+    for file in ${flist}
+    do
+	if [ -n "$(echo $file | egrep '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-[0-9]' )" ]
+	then
+	    # RRRRRRRR-R
+
+	    echo ${file}
+	else
+	    # RRRRRRRR
+
+	    leader=${file}
+	fi
+    done
+
+    if [ -n "${leader}" ]
+    then
+	# RRRRRRRR
+
+	echo ${leader}
+    fi
+    return 0
+}
+
+#
 #
 if ! today=$(yyyymmdd) || [ ! -n "${today}" ]
 then
@@ -61,12 +93,14 @@ do
 done
 
 #
-if flist=$(2>/dev/null ls ${prefix}-*.txt | sort -V | egrep -e "${ref}" ) && [ -n "${flist}" ]
+if flist=$(2>/dev/null ls ${prefix}-*.tex | sort -V | egrep -e "${ref}" ) && [ -n "${flist}" ]
 then
-    for file in ${flist}
-    do
-	echo ${file}
-    done
+
+    serialize ${flist}
+
+elif flist=$(2>/dev/null ls ${prefix}-*.txt | sort -V | egrep -e "${ref}" ) && [ -n "${flist}" ]
+then
+    serialize ${flist}
 else
     cat<<EOF>&2
 $0 error listing files in '${ref}'.
