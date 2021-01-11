@@ -1,86 +1,50 @@
 #!/bin/bash
 
-prefix=distance
-subtitle=''
-yyyymmdd=$(yyyymmdd)
-index=1
+wd=$(dirname $0)
 
+#
+# documentation
+#
 function usage {
     cat<<EOF>&2
 Synopsis
 
-  $0 
+  $0 [%component] 
 
 Description
 
-  Create new file "{prefix}-{yyyymmdd}-{x}.txt", for x = {1,...,N}.
-
-
-Synopsis
-
-  $0 %p'prefix'
-
-Description
-
-  Create new file "{prefix}-{yyyymmdd}-{x}.txt".
-
-
-Synopsis
-
-  $0 %s'subtitle'
-
-Description
-
-  Create new file "{prefix}-{yyyymmdd}-{x}-{subtitle}.txt".
-
+  Create new file "{components}.tex".
 
 EOF
 }
-
-#
-while [ -n "${1}" ]
+for arg in $*
 do
-    case "${1}" in
-
-	%p*)
-	    prefix=$(echo "${1}" | sed 's^%p^^')
-	    ;;
-
-	%s*)
-	    subtitle=$(echo "${1}" | sed 's^%s^^')
-	    ;;
-
-	*)
-	    usage
-	    exit 1
-	    ;;
+    case ${arg} in
+        -h|-?)
+        usage
+        exit 1
+        ;;
     esac
-    shift
 done
-
 #
-file=${prefix}-${yyyymmdd}-${index}.txt
-
-while [ -f ${file} ]
-do
-    index=$(( ${index} + 1 ))
-    file=${prefix}-${yyyymmdd}-${index}.txt
-done
-
 #
-if [ -n "${subtitle}" ]
+#
+if file=$(${wd}/next.sh $*) &&[ -n "${file}" ]&&[ ! -f "${file}" ]
 then
-    file=${prefix}-${yyyymmdd}-${index}-${subtitle}.txt
-fi
-
-#
-cat<<EOF>${file}
+    cat<<EOF>${file}
+\input preamble
 
 
+
+\bye
 EOF
 
-echo ${file}
+    echo ${file}
 
-git add ${file}
+    git add ${file}
 
-emacs ${file} &
+    emacs ${file} &
+else
+    usage
+    exit 1
+fi
